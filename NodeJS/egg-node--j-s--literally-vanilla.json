@@ -1,0 +1,78 @@
+{
+    "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY PTERODACTYL PANEL - PTERODACTYL.IO",
+    "meta": {
+        "version": "PTDL_v2",
+        "update_url": null
+    },
+    "exported_at": "2025-02-02T00:37:32-03:00",
+    "name": "Node.JS (Literally Vanilla)",
+    "author": "ssh@iroak.cl",
+    "description": "Node.JS Docker\r\nNo contains Github Support\r\nLiterally Vanilla",
+    "features": null,
+    "docker_images": {
+        "Node 20": "ghcr.io\/pterodactyl\/yolks:nodejs_20",
+        "Node 18": "ghcr.io\/pterodactyl\/yolks:nodejs_18",
+        "Node 17": "ghcr.io\/pterodactyl\/yolks:nodejs_17",
+        "Node 16": "ghcr.io\/pterodactyl\/yolks:nodejs_16",
+        "Node 15": "ghcr.io\/pterodactyl\/yolks:nodejs_15",
+        "Node 14": "ghcr.io\/pterodactyl\/yolks:nodejs_14",
+        "Node 12": "ghcr.io\/pterodactyl\/yolks:nodejs_12"
+    },
+    "file_denylist": [],
+    "startup": "[[ ! -z \"${NODE_PACKAGES}\" ]] && \/usr\/local\/bin\/npm install ${NODE_PACKAGES};\r\n[[ ! -z \"${UNNODE_PACKAGES}\" ]] && \/usr\/local\/bin\/npm uninstall ${UNNODE_PACKAGES};\r\n[[ -f \/home\/container\/package.json ]] && \/usr\/local\/bin\/npm install; echo \"Ok Startup\"; \r\n[[ ! -z \"${MAIN_FILE}\" ]] && node \"\/home\/container\/${MAIN_FILE}\" ${MAIN_ARGS} || \/usr\/local\/bin\/npm ${MAIN_ARGS}",
+    "config": {
+        "files": "{}",
+        "startup": "{\r\n    \"done\": [\r\n        \"Ok Startup\"\r\n    ]\r\n}",
+        "logs": "{}",
+        "stop": "^C"
+    },
+    "scripts": {
+        "installation": {
+            "script": "#!\/bin\/bash\r\n\r\n# Update NodeJS\r\necho -e \"Updating NodeJS\"\r\napt update\r\napt install -y git curl jq file unzip make gcc g++ python3 python3-dev python3-pip libtool\r\n\r\n# Update NPM\r\necho -e \"Updating npm. please wait...\"\r\nnpm install npm@latest --location=global\r\n\r\n# Finish\r\necho -e \"Install complete\"\r\nexit 0",
+            "container": "node:20.18-bookworm-slim",
+            "entrypoint": "bash"
+        }
+    },
+    "variables": [
+        {
+            "name": "Additional Node packages",
+            "description": "Install additional node packages.\r\nUse spaces to separate.",
+            "env_variable": "NODE_PACKAGES",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "nullable|string",
+            "field_type": "text"
+        },
+        {
+            "name": "Uninstall Node packages",
+            "description": "Uninstall node packages.\r\nUse spaces to separate.",
+            "env_variable": "UNNODE_PACKAGES",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "nullable|string",
+            "field_type": "text"
+        },
+        {
+            "name": "Main File",
+            "description": "The file that starts the app.\r\nPlease set \"empty\" to use npm route",
+            "env_variable": "MAIN_FILE",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "nullable|string|max:32",
+            "field_type": "text"
+        },
+        {
+            "name": "Additional Arguments.",
+            "description": "Any extra arguments in main file\r\nOr npm args if MAIN_FILE is \"empty\"",
+            "env_variable": "MAIN_ARGS",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "nullable|string|max:128",
+            "field_type": "text"
+        }
+    ]
+}
