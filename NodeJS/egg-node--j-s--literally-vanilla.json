@@ -6,7 +6,7 @@
     },
     "exported_at": "2025-02-02T00:37:32-03:00",
     "name": "Node.JS (Literally Vanilla)",
-    "author": "ssh@iroak.cl",
+    "author": "bastian@iroak.cl",
     "description": "Node.JS Docker\r\nNo contains Github Support\r\nLiterally Vanilla",
     "features": null,
     "docker_images": {
